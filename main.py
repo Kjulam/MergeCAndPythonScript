@@ -1,0 +1,38 @@
+import sys, os, uuid
+from print_help import print_help
+def main():
+    args = sys.argv
+    result_script = "#if false\n\"\"\"\n#endif\n"
+    if len(args) < 3:
+        print("错误：传入参数错误。")
+        print_help()
+        return 1
+    if os.path.splitext(args[1])[1] != ".c":
+        print("错误：第一个应当是 C 语言的源代码文件（.c）。")
+        print_help()
+        return 1
+    if os.path.splitext(args[2])[1] != ".py":
+        print("错误：第二个应当是 Python 语言的源代码文件（.py）。")
+        print_help()
+        return 1
+    try:
+        output_file = args[3]
+    except IndexError:
+        output_file = f"output/{{{str(uuid.uuid4()).upper()}}}.c"
+        if not os.path.exists("output"):
+            os.mkdir("output")
+    with open(args[1], "r+", encoding="utf-8") as file:
+        for lines in file.readlines():
+            result_script += lines
+    result_script += "#if false\n\"\"\"\n"
+    with open(args[2], "r+", encoding="utf-8") as file:
+        for lines in file.readlines():
+            result_script += lines
+    result_script += "\n#endif\n"
+    with open(output_file, "w", encoding="utf-8") as file:
+        file.write(result_script)
+    print(f"成功合并 \"{args[1]}\" 和 \"{args[2]}\" 到 {output_file}。")
+    return 0
+
+if __name__ == "__main__":
+    main()
