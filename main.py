@@ -7,8 +7,10 @@ def main():
         print("错误：传入参数错误。")
         print_help()
         return 1
-    if os.path.splitext(args[1])[1] != ".c":
-        print("错误：第一个应当是 C 语言的源代码文件（.c）。")
+    else:
+        c_or_cpp = os.path.splitext(args[1])[1][1:]
+    if c_or_cpp != "c" and c_or_cpp != "cpp":
+        print("错误：第一个应当是 C / C++ 语言的源代码文件（.c / .cpp）。")
         print_help()
         return 1
     if os.path.splitext(args[2])[1] != ".py":
@@ -18,7 +20,10 @@ def main():
     try:
         output_file = args[3]
     except IndexError:
-        output_file = f"output/{{{str(uuid.uuid4()).upper()}}}.c"
+        output_file = ""
+        for i in __file__.split("\\" if os.name == "nt" else "/")[:-1]:
+            output_file += f"{i}{"\\" if os.name == "nt" else "/"}"
+        output_file += f"output{"\\" if os.name == "nt" else "/"}{{{str(uuid.uuid4())}}}.{c_or_cpp}"
         if not os.path.exists("output"):
             os.mkdir("output")
     with open(args[1], "r+", encoding="utf-8") as file:
