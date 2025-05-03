@@ -24,7 +24,7 @@ def main():
     with open(args[1], "r+", encoding="utf-8") as file:
         for lines in file.readlines():
             result_script += lines
-    result_script += "#if false\n\"\"\"\n"
+    result_script += "\n#if false\n\"\"\"\n"
     with open(args[2], "r+", encoding="utf-8") as file:
         for lines in file.readlines():
             result_script += lines
