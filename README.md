@@ -8,6 +8,7 @@
 用法：python ./main.py /Path/to/your/c/script.c /Path/to/your/python/script.py /Path/to/the/result（路径中不能有空格）。
 说明：若为 Windows 系统，则应当替换为正确的路径，如 C:\Users\Administrator\Desktop\Script.py。
 若第三条（结果目录）未指定，则默认输出到该项目的 output/ 目录下，并随机生成一个 UUID 作为结果的文件名，后缀为 .c。
+也可以合并 C++ 语言和 Python 语言。
 ```
 
 _PS：直接使用 `python ./main.py` 可以输出这个使用方法。_
@@ -33,6 +34,7 @@ int main() {
 ```
 
 通过该项目，会生成这样一个代码：
+
 ```python
 #if false
 """
@@ -60,6 +62,24 @@ if __name__ == "__main__":
 - 因此最终会是原 Python 代码的效果。
 
 而在 C 语言编译器来看是这样的：
+
+```c
+#if false
+"""
+#endif
+#include <stdio.h>
+int main() {
+    printf("Hello from C! ");
+    return 0;
+}
+#if false
+"""
+def main():
+    print("Hello from Python! ")
+if __name__ == "__main__":
+    main()
+#endif
+```
 
 - 第 1 行：预处理命令，如果否则执行下一行。
 - 第 2 行：因为上面判断表达式为否，所以永远不会被执行。
