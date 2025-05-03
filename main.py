@@ -34,10 +34,15 @@ def main():
         for lines in file.readlines():
             result_script += lines
     result_script += "\n#endif\n"
-    with open(output_file, "w", encoding="utf-8") as file:
-        file.write(result_script)
-    print(f"成功合并 \"{args[1]}\" 和 \"{args[2]}\" 到 {output_file}。")
+    try:
+        with open(output_file, "w", encoding="utf-8") as file:
+            file.write(result_script)
+        print(f"成功合并 \"{args[1]}\" 和 \"{args[2]}\" 到 {output_file}。")
+    except PermissionError:
+        print("错误：权限不够。")
     return 0
 
 if __name__ == "__main__":
     main()
+
+
