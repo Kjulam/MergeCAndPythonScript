@@ -5,10 +5,9 @@
 - 使用方法如下：
 
 ```
-用法：python ./main.py /Path/to/your/c/script.c /Path/to/your/python/script.py /Path/to/the/result（路径中不能有空格）。
-说明：若为 Windows 系统，则应当替换为正确的路径，如 C:\Users\Administrator\Desktop\Script.py。
-若第三条（结果目录）未指定，则默认输出到该项目的 output/ 目录下，并随机生成一个 UUID 作为结果的文件名，后缀为 .c。
-也可以合并 C++ 语言和 Python 语言。
+使用方法：程序名 <C / C++ 源文件> <Python 源文件> [输出文件]
+示例：程序名 script.c script.py output.c
+若第三条（结果目录）未指定，则默认输出到该项目的 output/ 目录下，并随机生成一个 UUID 作为结果的文件名，后缀为 .c（或 .cpp）。
 ```
 
 _PS：直接使用 `python ./main.py` 可以输出这个使用方法。_
